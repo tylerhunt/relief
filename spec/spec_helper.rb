@@ -1,9 +1,8 @@
+$:.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+
+require 'rubygems'
+
+gem 'rspec', '~> 1.2.4'
 require 'spec'
 
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'relief'
-
-Spec::Runner.configure do |config|
-  
-end

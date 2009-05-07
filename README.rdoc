@@ -1,6 +1,6 @@
-= relief
+= Relief
 
-Description goes here.
+An XML to Hash Ruby parser DSL.
 
 == Copyright
 
