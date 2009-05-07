@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{relief}
-  s.version = "0.0.2"
+  s.version = "0.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tyler Hunt"]
@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.1}
-  s.summary = %q{An XML to Hash Ruby parser DSL.}
+  s.summary = %q{An XML to hash Ruby parser DSL.}
   s.test_files = [
     "spec/parser_spec.rb",
     "spec/spec_helper.rb"
@@ -39,8 +39,14 @@ Gem::Specification.new do |s|
     s.specification_version = 2
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<nokogiri>, ["~> 1.2.3"])
+      s.add_development_dependency(%q<jeweler>, ["~> 0.11.0"])
     else
+      s.add_dependency(%q<nokogiri>, ["~> 1.2.3"])
+      s.add_dependency(%q<jeweler>, ["~> 0.11.0"])
     end
   else
+    s.add_dependency(%q<nokogiri>, ["~> 1.2.3"])
+    s.add_dependency(%q<jeweler>, ["~> 0.11.0"])
   end
 end
