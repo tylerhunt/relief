@@ -5,16 +5,16 @@ module Relief
     def initialize(name, options, &block)
       @name = name
       @options = options
-      @children = {}
+      @children = []
 
       instance_eval(&block) if block_given?
     end
 
     def parse(document)
-      @children.inject({}) do |values, child|
-        name, element = child
+      @children.inject({}) do |values, element|
+        key = element.options[:as] || element.name
 
-        values[name] = begin
+        values[key] = begin
           target = (document / element.xpath)
 
           parse_node = lambda { |target|
@@ -34,8 +34,7 @@ module Relief
 
     def element(name, options={}, &block)
       options[:xpath] ||= name if name =~ %r([/.])
-      name = options[:as].to_sym if options.has_key?(:as)
-      @children[name] ||= self.class.new(name, options, &block)
+      @children << self.class.new(name, options, &block)
     end
 
     def elements(name, options={}, &block)
@@ -49,12 +48,12 @@ module Relief
     def xpath
       if options.has_key?(:xpath)
         options[:xpath]
-      elsif @children.empty?
+      elsif @children.any?
+        name.to_s
+      else
         attribute = @options[:attribute]
         attribute = name if attribute == true
         !attribute ? "#{name}/text()" : "@#{attribute}"
-      else
-        name.to_s
       end
     end
   end
