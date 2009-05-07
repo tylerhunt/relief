@@ -1,4 +1,4 @@
 module Relief
-  autoload :Parser, 'lib/relief/parser'
-  autoload :Element, 'lib/relief/element'
+  autoload :Parser, 'relief/parser'
+  autoload :Element, 'relief/element'
 end
