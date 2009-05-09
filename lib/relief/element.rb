@@ -13,12 +13,23 @@ module Relief
     def parse(document)
       @children.inject({}) do |values, element|
         key = element.options[:as] || element.name
+        type = element.options[:type]
 
         values[key] = begin
           target = (document / element.xpath)
 
           parse_node = lambda { |target|
-            element.children.any? ? element.parse(target) : target.to_s
+            if element.children.any?
+              element.parse(target)
+            else
+              value = target.to_s
+
+              if type == Integer then value.to_i
+              elsif type == Float then value.to_f
+              elsif type == Date then Date.parse(value)
+              else value
+              end
+            end
           }
 
           if element.options[:collection]

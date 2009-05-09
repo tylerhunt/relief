@@ -123,4 +123,27 @@ describe Relief::Parser do
 
     photos.should == { :name => ['Cucumbers', 'Lemons'] }
   end
+
+  it "parses elements with type casting" do
+    parser = Relief::Parser.new(:photo) do
+      element :id, :type => Integer
+      element :rating, :type => Float
+      element :published, :type => Date
+    end
+
+    photo = parser.parse(<<-XML)
+      <?xml version="1.0" encoding="UTF-8"?>
+      <photo>
+        <id>86634</id>
+        <rating>3.5</rating>
+        <published>2009-05-08T18:23:26-07:00</url>
+      </photo>
+    XML
+
+    photo.should == {
+      :id => 86634,
+      :rating => 3.5,
+      :published => Date.parse('2009-05-08T18:23:26-07:00')
+    }
+  end
 end
