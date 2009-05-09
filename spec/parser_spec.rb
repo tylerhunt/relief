@@ -146,4 +146,32 @@ describe Relief::Parser do
       :published => Date.parse('2009-05-08T18:23:26-07:00')
     }
   end
+
+  it "parses elements with custom type casting" do
+    author = Relief::Parser.new do
+      element :name
+      element :email
+    end
+
+    parser = Relief::Parser.new(:photo) do
+      element :author, :type => author
+    end
+
+    photo = parser.parse(<<-XML)
+      <?xml version="1.0" encoding="UTF-8"?>
+      <photo>
+        <author>
+          <name>Jennifer Stone</name>
+          <email>jstone@example.com</email>
+        </author>
+      </photo>
+    XML
+
+    photo.should == {
+      :author => {
+        :name => 'Jennifer Stone',
+        :email => 'jstone@example.com'
+      }
+    }
+  end
 end

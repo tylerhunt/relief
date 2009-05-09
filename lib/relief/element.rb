@@ -2,7 +2,7 @@ module Relief
   class Element
     attr_reader :name, :options, :children
 
-    def initialize(name, options, &block)
+    def initialize(name=nil, options={}, &block)
       @name = name
       @options = options
       @children = []
@@ -27,6 +27,7 @@ module Relief
               if type == Integer then value.to_i
               elsif type == Float then value.to_f
               elsif type == Date then Date.parse(value)
+              elsif type.is_a?(Parser) then type.parse(document)
               else value
               end
             end
