@@ -1,3 +1,7 @@
+0.0.4 - Current
+
+* Added support for type casting (Tyler Hunt)
+
 0.0.3 - May 7, 2009
 
 * Fixed the :as option for specifying name aliases (Tyler Hunt)
