@@ -24,9 +24,12 @@ module Relief
             else
               value = target.to_s
 
-              if type == Integer then value.to_i
+              if type.nil? then value
+              elsif value.empty? then nil
+              elsif type == Integer then value.to_i
               elsif type == Float then value.to_f
               elsif type == Date then Date.parse(value)
+              elsif type == DateTime then DateTime.parse(value)
               elsif type.is_a?(Parser) then type.parse(document)
               else value
               end

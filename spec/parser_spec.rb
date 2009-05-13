@@ -128,7 +128,8 @@ describe Relief::Parser do
     parser = Relief::Parser.new(:photo) do
       element :id, :type => Integer
       element :rating, :type => Float
-      element :published, :type => Date
+      element :taken, :type => Date
+      element :published, :type => DateTime
     end
 
     photo = parser.parse(<<-XML)
@@ -136,14 +137,16 @@ describe Relief::Parser do
       <photo>
         <id>86634</id>
         <rating>3.5</rating>
-        <published>2009-05-08T18:23:26-07:00</url>
+        <taken>2009-05-06</taken>
+        <published>2009-05-08T18:23:26-07:00</published>
       </photo>
     XML
 
     photo.should == {
       :id => 86634,
       :rating => 3.5,
-      :published => Date.parse('2009-05-08T18:23:26-07:00')
+      :taken => Date.new(2009, 5, 6),
+      :published => DateTime.new(2009, 5, 8, 18, 23, 26, Date.time_to_day_fraction(-7, 0, 0))
     }
   end
 
@@ -172,6 +175,35 @@ describe Relief::Parser do
         :name => 'Jennifer Stone',
         :email => 'jstone@example.com'
       }
+    }
+  end
+
+  it "doesn't type cast elements with empty values" do
+    parser = Relief::Parser.new(:photo) do
+      element :name
+      element :id, :type => Integer
+      element :rating, :type => Float
+      element :taken, :type => Date
+      element :published, :type => DateTime
+    end
+
+    photo = parser.parse(<<-XML)
+      <?xml version="1.0" encoding="UTF-8"?>
+      <photo>
+        <name></name>
+        <id></id>
+        <rating></rating>
+        <taken></taken>
+        <published></published>
+      </photo>
+    XML
+
+    photo.should == {
+      :name => '',
+      :id => nil,
+      :rating => nil,
+      :taken => nil,
+      :published => nil
     }
   end
 end
