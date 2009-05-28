@@ -1,3 +1,5 @@
+require 'time'
+
 module Relief
   class Element
     attr_reader :name, :options, :children
@@ -29,6 +31,7 @@ module Relief
               elsif type == Integer then value.to_i
               elsif type == Float then value.to_f
               elsif type == Date then Date.parse(value)
+              elsif type == Time then Time.parse(value)
               elsif type == DateTime then DateTime.parse(value)
               elsif type.is_a?(Parser) then type.parse(document)
               else value

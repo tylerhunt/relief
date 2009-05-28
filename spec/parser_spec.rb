@@ -129,6 +129,7 @@ describe Relief::Parser do
       element :id, :type => Integer
       element :rating, :type => Float
       element :taken, :type => Date
+      element :modified, :type => Time
       element :published, :type => DateTime
     end
 
@@ -138,6 +139,7 @@ describe Relief::Parser do
         <id>86634</id>
         <rating>3.5</rating>
         <taken>2009-05-06</taken>
+        <modified>2009-05-08T18:23:48-07:00</modified>
         <published>2009-05-08T18:23:26-07:00</published>
       </photo>
     XML
@@ -146,6 +148,7 @@ describe Relief::Parser do
       :id => 86634,
       :rating => 3.5,
       :taken => Date.new(2009, 5, 6),
+      :modified => Time.parse('2009-05-08T18:23:48-07:00'),
       :published => DateTime.new(2009, 5, 8, 18, 23, 26, Date.time_to_day_fraction(-7, 0, 0))
     }
   end
