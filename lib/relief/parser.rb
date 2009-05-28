@@ -2,6 +2,9 @@ gem 'nokogiri', '~> 1.2.3'
 require 'nokogiri'
 
 module Relief
+  class Error < StandardError ; end
+  class ParseError < Error ; end
+
   class Parser
     attr_reader :root
 
@@ -15,6 +18,8 @@ module Relief
       end
 
       @root.parse(document)
+    rescue Nokogiri::XML::XPath::SyntaxError
+      raise ParseError
     end
   end
 end

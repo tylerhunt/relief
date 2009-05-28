@@ -1,6 +1,17 @@
 require File.join(File.dirname(__FILE__), 'spec_helper')
 
 describe Relief::Parser do
+  it "returns nil if the document can't be parsed" do
+    parser = Relief::Parser.new(:photo) do
+      element :name
+      element :url
+    end
+
+    lambda {
+      parser.parse('')
+    }.should raise_error(Relief::ParseError)
+  end
+
   it "parses elements" do
     parser = Relief::Parser.new(:photo) do
       element :name
