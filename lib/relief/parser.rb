@@ -1,4 +1,4 @@
-gem 'nokogiri', '~> 1.2.3'
+gem 'nokogiri', '~> 1.3.3'
 require 'nokogiri'
 
 module Relief
@@ -17,9 +17,9 @@ module Relief
         document = Nokogiri::XML(document.to_s)
       end
 
+      raise ParseError if document.root.nil?
+
       @root.parse(document)
-    rescue Nokogiri::XML::XPath::SyntaxError
-      raise ParseError
     end
   end
 end

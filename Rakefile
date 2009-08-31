@@ -13,7 +13,7 @@ begin
     gem.homepage = "http://github.com/tylerhunt/relief"
     gem.authors = ["Tyler Hunt"]
 
-    gem.add_dependency 'nokogiri', '~> 1.2.3'
+    gem.add_dependency 'nokogiri', '~> 1.3.3'
 
     gem.add_development_dependency('jeweler', '~> 0.11.0')
   end
