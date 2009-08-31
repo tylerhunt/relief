@@ -12,6 +12,7 @@ begin
     gem.email = "tyler@tylerhunt.com"
     gem.homepage = "http://github.com/tylerhunt/relief"
     gem.authors = ["Tyler Hunt"]
+    gem.rubyforge_project = 'relief'
 
     gem.add_dependency 'nokogiri', '~> 1.3.3'
 
