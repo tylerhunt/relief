@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), 'spec_helper')
 
 describe Relief::Parser do
-  it "returns nil if the document can't be parsed" do
+  it "raises a ParseError if the document can't be parsed" do
     parser = Relief::Parser.new(:photo) do
       element :name
       element :url
@@ -61,6 +61,8 @@ describe Relief::Parser do
 
   it "parses attributes" do
     parser = Relief::Parser.new(:photos) do
+      attribute :status
+
       elements :photo do
         attribute :name
         attribute :url
@@ -69,13 +71,14 @@ describe Relief::Parser do
 
     photos = parser.parse(<<-XML)
       <?xml version="1.0" encoding="UTF-8"?>
-      <photos>
+      <photos status="fine">
         <photo name="Cucumbers" url="/photos/cucumbers.jpg" />
         <photo name="Lemons" url="/photos/lemons.jpg" />
       </photos>
     XML
 
     photos.should == {
+      :status => 'fine',
       :photo => [
         { :name => 'Cucumbers', :url => '/photos/cucumbers.jpg' },
         { :name => 'Lemons', :url => '/photos/lemons.jpg' }

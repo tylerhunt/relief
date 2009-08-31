@@ -71,7 +71,7 @@ module Relief
       else
         attribute = @options[:attribute]
         attribute = name if attribute == true
-        !attribute ? "#{name}/text()" : "@#{attribute}"
+        !attribute ? "#{name}/text()" : ".//@#{attribute}"
       end
     end
   end
