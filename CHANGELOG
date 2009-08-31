@@ -1,7 +1,9 @@
-0.0.4 - Current
+0.0.4 - August 31, 2009
 
 * Added support for type casting (Tyler Hunt)
 * Updated to raise Relief::ParseError on parse errors (Tyler Hunt)
+* Fixed an issue with attribute XPATHs (Tyler Hunt)
+* Updated to Nokogiri 1.3.3 (Tyler Hunt)
 
 0.0.3 - May 7, 2009
 
